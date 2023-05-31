@@ -14,48 +14,31 @@ for (int i=0; i < size; i++)
 // } Driver Code Ends
 //User function Template for C++
 
-class data{
-    public:
-    int num,apos,numpos;
-    public:
-    data(int num,int apos,int numpos)
-    {
-        this->num=num;
-        this->apos=apos;
-        this->numpos=numpos;
-    }
-};
+typedef pair<int,pair<int,int>>ppi;
 class Solution
 {
-    struct comp{
-        bool operator()(data d1,data d2)
-        {return d1.num>d2.num;
-        }
-    };
     public:
     //Function to merge k sorted arrays.
-    vector<int> mergeKArrays(vector<vector<int>> arr, int k )
+    vector<int> mergeKArrays(vector<vector<int>> arr, int k)
     {
+        priority_queue<ppi,vector<ppi>,greater<ppi>>minh;
         vector<int>ans;
-        priority_queue<data,vector<data>,comp>pq;
         for(int i=0;i<k;i++)
         {
-            data ds(arr[i][0],i,0);
-            pq.push(ds);
+            minh.push({arr[i][0],{i,0}});
         }
-        while(!pq.empty())
+        
+        while(!minh.empty())
         {
-            data it=pq.top();
-            pq.pop();
-            int num=it.num;
-            int apos=it.apos;
-            int numpos=it.numpos;
-            
+            int num=minh.top().first;
+            int arrpos=minh.top().second.first;
+            int index=minh.top().second.second;
+            minh.pop();
             ans.push_back(num);
-            if(numpos+1<arr[apos].size())
+            
+            if(index+1<arr[arrpos].size())
             {
-                data ds(arr[apos][numpos+1],apos,numpos+1);
-                pq.push(ds);
+                minh.push({arr[arrpos][index+1],{arrpos,index+1}});
             }
         }
         return ans;
