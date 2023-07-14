@@ -10,50 +10,37 @@ using namespace std;
 class Solution {
 public:
 
-    bool ispossible( vector<int> &stalls , int n , int k , int mid){
-         
-         int cntcows = 1;
-         int lastplacedcow =stalls[0];
-         
-         for(int i = 1; i < n ; i++){
-             
-             if( stalls[i] - lastplacedcow >= mid){
-                 
-                 cntcows++;
-                 lastplacedcow = stalls[i];
-             }
-         }
-         
-         if(cntcows >= k)
-         return true;
-         
-         else
-         return false;
-     }
+    bool func(vector<int>&stalls,int dist,int k)
+    {
+        int cows=1,last_index=stalls[0];
+        for(int i=1;i<stalls.size();i++)
+        {
+            if(stalls[i]-last_index>=dist)
+            {
+                cows++;
+                last_index=stalls[i];
+            }
+        }
+        if(cows>=k) return true;
+        return false;
+    }
     int solve(int n, int k, vector<int> &stalls) {
     
-            sort(stalls.begin() , stalls.end());
+        sort(stalls.begin(),stalls.end());
+        
+        int l=1, h=stalls[n-1]-stalls[0];
        
-        int low = 1;
-        int high = stalls[n-1] - stalls[0];
-        
-        while( low <= high){
-            
-            int mid = (low + high) >> 1;
-            
-            if( ispossible( stalls , n , k , mid)){
-                
-                low = mid + 1;
+        while(l<=h)
+        {
+            int mid=l+(h-l)/2;
+            if(func(stalls,mid,k)==true)
+            {
+                l=mid+1;
             }
-            
-            else{
-                high = mid -1;
-            }
-            
-            
+            else
+            h=mid-1;
         }
-        
-        return high;
+        return h;
     }
 };
 
