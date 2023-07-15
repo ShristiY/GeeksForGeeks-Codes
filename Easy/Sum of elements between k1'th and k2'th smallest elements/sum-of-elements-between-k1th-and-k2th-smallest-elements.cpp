@@ -5,21 +5,22 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    long long findKthSmallest(long long A[],long long N,long long K)
+    long long findKth(long long A[], long long N , long long k)
     {
-        priority_queue<long long>maxh;
+        priority_queue<long long>pq;
         for(int i=0;i<N;i++)
         {
-            maxh.push(A[i]);
-            if(maxh.size()>K)
-            maxh.pop();
+            pq.push(A[i]);
+            if(pq.size()>k)
+            pq.pop();
         }
-        return maxh.top();
+        return pq.top();
     }
     long long sumBetweenTwoKth( long long A[], long long N, long long K1, long long K2)
     {
-        long long first= findKthSmallest(A,N,K1);
-        long long second=findKthSmallest(A,N,K2);
+        long long first=findKth(A,N,K1);
+        long long second=findKth(A,N,K2);
+        
         long long sum=0;
         for(int i=0;i<N;i++)
         {
