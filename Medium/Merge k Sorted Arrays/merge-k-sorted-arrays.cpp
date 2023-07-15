@@ -15,6 +15,7 @@ for (int i=0; i < size; i++)
 //User function Template for C++
 
 typedef pair<int,pair<int,int>>ppi;
+
 class Solution
 {
     public:
@@ -30,15 +31,16 @@ class Solution
         
         while(!minh.empty())
         {
+            k--;
             int num=minh.top().first;
-            int arrpos=minh.top().second.first;
+            int arrPos=minh.top().second.first;
             int index=minh.top().second.second;
             minh.pop();
             ans.push_back(num);
             
-            if(index+1<arr[arrpos].size())
+            if(index+1<arr[arrPos].size())
             {
-                minh.push({arr[arrpos][index+1],{arrpos,index+1}});
+                minh.push({arr[arrPos][index+1],{arrPos,index+1}});
             }
         }
         return ans;
