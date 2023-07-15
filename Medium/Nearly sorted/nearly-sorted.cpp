@@ -8,23 +8,22 @@ class Solution
 {
     public:
     //Function to return the sorted array.
-    vector <int> nearlySorted(int arr[], int n, int K){
+    vector <int> nearlySorted(int arr[], int num, int k){
+        priority_queue<int,vector<int>,greater<int>>minh;
         vector<int>ans;
-        priority_queue<int,vector<int>,greater<int>>pq;
-        for(int i=0;i<n;i++)
+        for(int i=0;i<num;i++)
         {
-            pq.push(arr[i]);
-            if(pq.size()>K)
+            minh.push(arr[i]);
+            if(minh.size()>k)
             {
-                ans.push_back(pq.top());
-                pq.pop();
+                ans.push_back(minh.top());
+                minh.pop();
             }
         }
-        
-        while(!pq.empty())
+        while(!minh.empty())
         {
-            ans.push_back(pq.top());
-            pq.pop();
+            ans.push_back(minh.top());
+            minh.pop();
         }
         return ans;
     }
