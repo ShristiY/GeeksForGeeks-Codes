@@ -9,20 +9,20 @@ using namespace std;
 
 class Solution {
   public:
-  void dfs(int r, int c, vector<pair<int,int>>&vec,vector<vector<int>>&vis,vector<vector<int>>&grid,int row0, int col0)
+  void dfs(int r, int c,vector<vector<int>>&vis,vector<pair<int,int>>&vec,vector<vector<int>>&grid, int r0, int c0)
   {
       vis[r][c]=1;
-      vec.push_back({r-row0,c-col0});
-      int n=grid.size();
-      int m=grid[0].size();
+      vec.push_back({r-r0,c-c0});
       int delRow[]={-1,0,1,0};
       int delCol[]={0,1,0,-1};
+      int n=grid.size();
+      int m=grid[0].size();
       for(int i=0;i<4;i++)
       {
           int nrow=r+delRow[i];
           int ncol=c+delCol[i];
           if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==1 && !vis[nrow][ncol])
-          dfs(nrow,ncol,vec,vis,grid,row0,col0);
+          dfs(nrow,ncol,vis,vec,grid,r0,c0);
       }
   }
     int countDistinctIslands(vector<vector<int>>& grid) {
@@ -34,10 +34,10 @@ class Solution {
         {
             for(int j=0;j<m;j++)
             {
-                if(!vis[i][j] && grid[i][j]==1)
+                if(grid[i][j]==1 && !vis[i][j])
                 {
                     vector<pair<int,int>>vec;
-                    dfs(i,j,vec,vis,grid,i,j);
+                    dfs(i,j,vis,vec,grid,i,j);
                     st.insert(vec);
                 }
             }
